@@ -8,8 +8,8 @@
 
 int main()
 {
-	char sendline[100], recvline[100];
 	int sockfd, commfd, len, ch;
+	char msg[100];
 	struct sockaddr_in sa, cli;
 
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -21,17 +21,8 @@ int main()
 	connect(sockfd, (struct sockaddr *)&sa, sizeof(sa));
 	printf("Connected succesfully...\n");
 
-	while(1)
-	{
-		bzero(sendline, 100);
-		bzero(recvline, 100);
-
-		printf("Enter a message: ");
-		fgets(sendline, 100, stdin);
-		write(sockfd, sendline, strlen(sendline) + 1);
-
-		read(sockfd, recvline, 100);
-		printf("Messsage recieved: %s", recvline);
-	}
+	bzero(msg, 100);
+	read(sockfd, msg, 100);
+	printf("Messsage recieved: %s", msg);
 	return 0;
 }
